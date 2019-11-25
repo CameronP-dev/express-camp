@@ -16,8 +16,10 @@ const commentRoutes		 = require("./routes/comments"),
 		campgroundRoutes = require("./routes/campgrounds"),
 		authRoutes		 = require("./routes/index");
 
-const port = 3000,
-	  args = process.argv.slice(2);
+const port = process.env.PORT || 3000,
+	  args = process.argv.slice(2),
+	  secret_default = "the worlds longest secret to ever become a secret",
+	  secret_session = process.env.EXPRESSSECRET || secret_default;
 
 mongoose.connect("mongodb://localhost/express_camp", {useNewUrlParser: true});
 app.use(bodyParser.urlencoded({extended: true}));
@@ -35,9 +37,13 @@ args.forEach(function (elem) {
 	}
 });
 
+if (secret_session === secret_default) { 
+	console.log("WARN: Secret left as default!");
+}
+
 //PASSPORT CONFIGURATION
 app.use(require("express-session")({
-	secret: "the worlds longest secret to ever become a secret",
+	secret: secret_session,
 	resave: false,
 	saveUninitialized: false
 }));
