@@ -16,12 +16,21 @@ const commentRoutes		 = require("./routes/comments"),
 		campgroundRoutes = require("./routes/campgrounds"),
 		authRoutes		 = require("./routes/index");
 
-const port = process.env.PORT || 3000,
-	  args = process.argv.slice(2),
-	  secret_default = "the worlds longest secret to ever become a secret",
-	  secret_session = process.env.EXPRESSSECRET || secret_default;
+const port 				 = process.env.PORT || 3000,
+	  args 				 = process.argv.slice(2),
+	  secret_default 	 = "the worlds longest secret to ever become a secret",
+	  secret_session 	 = process.env.EXPRESSSECRET || secret_default,
+	  url				 = process.env.DATABASEURL || "mongodb://localhost/express_camp";
 
-mongoose.connect("mongodb://localhost/express_camp", {useNewUrlParser: true});
+mongoose.connect(url, {
+	useNewUrlParser: true,
+	useCreateIndex: true
+}).then(() => {
+	console.log("Connected to DB!");
+}).catch(err => {
+	console.log("ERROR:", err.message);
+});
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
