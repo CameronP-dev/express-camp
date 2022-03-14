@@ -15,5 +15,5 @@ The source code should readily work with Heroku, as that is what I'm using.
 You can see the server running as a Heroku app at: https://express-camp.herokuapp.com/
 
 
-#### Note about the reop itself
+#### Note about the repo itself
 This git repo was originally only created to assist in getting the code on Heroku. I tried my best to give it a real commit history that is accurate to the code's history, but there were a lot more stages. I may rebase a ton of this later to incorporate the many other directories holding distinct versions of the server. But that effort might be better spent on using the knowledge to make another website I can show off more; don't hold your breath for me to give this repo a ton of attention.
